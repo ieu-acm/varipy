@@ -3,3 +3,4 @@ torch==1.8.1+cpu
 numpy 
 opencv-python
 tqdm
+imgaug
