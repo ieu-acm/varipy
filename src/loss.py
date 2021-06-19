@@ -2,10 +2,10 @@
 import torch
 
 
-def dice_coef(y_true: torch.Tensor,
-              y_pred: torch.Tensor,
-              smooth: float = 1e-6) -> torch.Tensor:
-    """ Dice coefficient PyTorch implementation
+def dice_coef_loss(y_true: torch.Tensor,
+                   y_pred: torch.Tensor,
+                   smooth: float = 1e-6) -> torch.Tensor:
+    """ Dice coefficient loss PyTorch implementation
 
     Args:
         y_true (torch.Tensor): Label in Dataset
