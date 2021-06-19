@@ -4,21 +4,16 @@ import glob
 import argparse
 import importlib
 
-print("y")
 import torch
-
-print("a")
 from torch.optim import Adam
 from src.loss import dice_coef_loss
 from src.data import GoalpostDataLoader
 import segmentation_models_pytorch as smp
-print("s")
 from src.train_utils import TrainingManager
-from sklearn.model_selection import train_test_split
 
-print("s")
 parser = argparse.ArgumentParser()
-parser.add_argument('-c', '--config', default="goalpost_default", help="Specify the config name. (It should be located in ./config folder!")
+parser.add_argument('-c', '--config', default="goalpost_default", \
+    help="Specify the config name. (It should be located in ./config folder!")
 args = parser.parse_args()
 
 try:
@@ -40,7 +35,7 @@ for image_names in all_images:
     image_ids.append(image_id)
 
 dataloader = GoalpostDataLoader(image_ids = image_ids,
-                                base_path = config.path, 
+                                base_path = config.path,
                                 input_shape = config.input_shape,
                                 transforms = config.train_transforms,
                                 batch_size = config.batch_size,
@@ -49,20 +44,25 @@ dataloader = GoalpostDataLoader(image_ids = image_ids,
                                 )
 
 train_loader = dataloader.get("train")
-val_loader   = dataloader.get("val")
+val_loader = dataloader.get("val")
 
 model = smp.Unet(encoder_name = "resnet18",
-                    in_channels = 3,
-                    classes = 3,
-)
+                 in_channels = 3,
+                 classes = 3)
 
 optimizer = Adam(model.parameters(), lr=1e-4)
 criterion = dice_coef_loss
 
-tm = TrainingManager(model=model, optimizer=optimizer, loss_fn=criterion, train_dloader=train_loader, val_dloader=val_loader, device=device)
+tm = TrainingManager(model=model,
+                    optimizer=optimizer,
+                    loss_fn=criterion,
+                    train_dloader=train_loader,
+                    val_dloader=val_loader,
+                    device=device)
 
 for epoch in range(config.epochs):
     tm.train_epoch(epoch)
     tm.validate(epoch)
     modelpt = tm.get_model()
-    torch.save(modelpt.state_dict(), os.path.join(weights_path, f'goalpost_{epoch}_{time.time()}.pth'))
+    torch.save(modelpt.state_dict(), os.path.join(weights_path, \
+        f'goalpost_{epoch}_{time.time()}.pth'))
