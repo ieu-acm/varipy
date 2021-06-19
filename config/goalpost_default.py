@@ -1,15 +1,13 @@
 """ Project configuration parameters """
-import imgaug
+from imgaug import augmenters as iaa 
 
 class config:
     path = "data" # Relative to home directory of repository, 
                   # includes "masked" and "original" sub-directories
 
     input_shape = (256,256,3)
-    num_workers = 4
+    num_workers = 2
     val_ratio = 0.2
-
-    valid_transforms = None
 
     weights_path = "weights"
     epochs = 50
@@ -28,3 +26,5 @@ class config:
         iaa.imgcorruptlike.Brightness(severity=2),
         iaa.ShearX((-20, 20))
     ])
+
+    valid_transforms = None
