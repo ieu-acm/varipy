@@ -30,8 +30,8 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 all_images = glob.glob(os.path.join(config.path, "original", "*"))
 image_ids = []
-for image_names in all_images:
-    image_id = image_names.split(".")[0]
+for image_name in all_images:
+    image_id = os.path.basename(image_name).split(".")[0]
     image_ids.append(image_id)
 
 dataloader = GoalpostDataLoader(image_ids = image_ids,
