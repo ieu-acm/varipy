@@ -8,6 +8,7 @@ from typing import Tuple, Optional
 
 import cv2
 import numpy as np
+from imgaug.augmentables.segmaps import SegmentationMapsOnImage
 
 import torch
 from torch.utils.data import Dataset, DataLoader, random_split
@@ -108,7 +109,8 @@ class GoalpostDataset(Dataset):
         mask = self.__load_n_preprocess(paths["mask_path"])
 
         if self.__transforms is not None:
-            image, mask = self.__transforms(image=image, segmentation_maps=mask)
+            segmap = SegmentationMapsOnImage(mask, shape=mask.shape)
+            image, mask = self.__transforms(image=image, segmentation_maps=segmap)
 
         image = torch.from_numpy(image)
         mask = torch.from_numpy(mask)
