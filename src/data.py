@@ -108,8 +108,7 @@ class GoalpostDataset(Dataset):
         mask = self.__load_n_preprocess(paths["mask_path"])
 
         if self.__transforms is not None:
-            transformed = self.__transforms(image=image, mask=mask)
-            image, mask = transformed["image"], transformed["mask"]
+            image, mask = self.__transforms(image=image, segmentation_maps=mask)
 
         image = torch.from_numpy(image)
         mask = torch.from_numpy(mask)
