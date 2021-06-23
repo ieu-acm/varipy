@@ -97,3 +97,8 @@ class TrainingManager:
 
         pbar.set_description(f'epoch {epoch} \
             average_val_loss: {total_loss/total_samples:.4f}')
+    
+    def get_model():
+        """ Return model architecture with weights & biases
+        """    
+        return self.__model
