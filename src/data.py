@@ -110,7 +110,7 @@ class GoalpostDataset(Dataset):
 
         if self.__transforms is not None:
             segmap = SegmentationMapsOnImage(mask, shape=mask.shape)
-            image, mask = self.__transforms(image=image, segmentation_maps=segmap)
+            image, mask = self.__transforms(image=image.astype(np.uint8), segmentation_maps=segmap)
 
         image = torch.from_numpy(image)
         mask = torch.from_numpy(mask)
