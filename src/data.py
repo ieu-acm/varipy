@@ -75,18 +75,22 @@ class GoalpostDataset(Dataset):
 
         return len(self.__image_ids)
 
-    def __load_n_preprocess(self, path: str) -> np.array:
+    def __load_n_preprocess(self, path: str, bool_mask: bool) -> np.array:
         """ Load, resize and normalize RGB image.
 
         Args:
             path (str): Image path
+            bool_mask (bool): Is this preprocessing for mask?
 
         Returns:
             (np.array): Preprocessed image
         """
 
         image = cv2.imread(path)
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        if bool_mask:
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        else:
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image = cv2.resize(image, self.__input_shape[:2])
         image = (image-image.min()) / (image.max()-image.min())
 
@@ -105,8 +109,8 @@ class GoalpostDataset(Dataset):
         _id = self.__image_ids[i]
         paths = self.__id2path(_id)
 
-        image = self.__load_n_preprocess(paths["image_path"])
-        mask = self.__load_n_preprocess(paths["mask_path"])
+        image = self.__load_n_preprocess(paths["image_path"], False)
+        mask = self.__load_n_preprocess(paths["mask_path"], True)
 
         image = torch.from_numpy(image)
         mask = torch.from_numpy(mask)
