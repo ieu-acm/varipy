@@ -20,11 +20,8 @@ class config:
         iaa.FastSnowyLandscape(
         lightness_threshold=[128, 200],
         lightness_multiplier=(1.5, 3.5)),
-        iaa.Rain(speed=(0.1, 0.3)),
         iaa.Snowflakes(flake_size=(0.1, 0.4), speed=(0.01, 0.05)),
         iaa.Fog(),
-        iaa.imgcorruptlike.Brightness(severity=2),
-        iaa.ShearX((-20, 20))
     ])
 
     valid_transforms = None
