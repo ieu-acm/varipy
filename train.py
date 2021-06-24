@@ -48,7 +48,7 @@ val_loader = dataloader.get("val")
 
 model = smp.Unet(encoder_name = "resnet18",
                  in_channels = 3,
-                 classes = 3)
+                 classes = 1)
 
 optimizer = Adam(model.parameters(), lr=1e-4)
 criterion = dice_coef_loss
