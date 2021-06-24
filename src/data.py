@@ -108,10 +108,6 @@ class GoalpostDataset(Dataset):
         image = self.__load_n_preprocess(paths["image_path"])
         mask = self.__load_n_preprocess(paths["mask_path"])
 
-        if self.__transforms is not None:
-            segmap = SegmentationMapsOnImage(mask, shape=mask.shape)
-            image, mask = self.__transforms(image=image.astype(np.uint8), segmentation_maps=segmap)
-
         image = torch.from_numpy(image)
         mask = torch.from_numpy(mask)
         image = image.permute(2, 0, 1)
