@@ -5,7 +5,7 @@
 </a>
 </div>
 
-## Project Varipy
+## Project varipy
 Varipy is a decision-making mechanism that aims to add a new dimension to local football fun. This is the GitHub repository of Varipy source code, including instructions for installing and training Varipy, below.
 
 ## Source Code Organization
@@ -17,7 +17,7 @@ Varipy is a decision-making mechanism that aims to add a new dimension to local 
 | `src/`            | Data Processing, Data Training and Validation Tools|
 | `weights/`            | Training weights |
 
-## Installing Varipy
+## Installing varipy
 
 Firstly, make sure you have all the required dependencies installed on [CPU](https://github.com/ieu-acm/varipy/blob/main/requirements.txt) or  [GPU](https://github.com/ieu-acm/varipy/blob/main/requirements_gpu.txt). Then, acquire the source code by cloning the git repository:
 
